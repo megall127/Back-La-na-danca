@@ -37,6 +37,15 @@ export default class User extends BaseModel {
   public typeuser: string
 
   @column()
+  public elogio: number
+
+  @column()
+  public critica: number
+
+  @column()
+  public active: boolean
+
+  @column()
   public rememberMeToken?: string
 
 

@@ -15,6 +15,9 @@ export default class UserlndsSchema extends BaseSchema {
       table.float('avulso')
       table.float('subs')
       table.string('typeuser')
+      table.float('elogio')
+      table.float('critica')
+      table.boolean('active')
       table.string('remember_me_token').nullable()
 
       /**

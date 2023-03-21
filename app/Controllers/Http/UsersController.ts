@@ -19,9 +19,14 @@ export default class UsersController {
         user.avulso = request.input('avulso')
         user.subs = request.input('subs')
         user.typeuser = request.input('typeuser')
+        user.elogio = request.input('elogio')
+        user.critica = request.input('critica')
+        user.active = request.input('active')
 
         await user.save()
     }
+
+
 
     public async login({auth, request, response}:HttpContextContract) {
 
@@ -33,7 +38,7 @@ export default class UsersController {
         const token = await auth.use('api').attempt(email, password)
           return {
             token: token,
-            user: auth.user
+            user: auth.user,
           }
         } catch {
           return response.unauthorized('Invalid credentials')
@@ -75,9 +80,31 @@ export default class UsersController {
         }      
     }
 
+    public async getProfessor( { auth , request, response}: HttpContextContract){  
+        const check = await auth.use('api').authenticate()
+        
+        let monitores:any = []
+
+        if(check){
+            (await User.all()).map((itens) => {
+                if(itens.typeuser === "professor"){
+                    monitores.push(itens)
+                } else {
+
+                }
+            })
+
+            return monitores
+
+        } else {
+            return "Usuário não autenticado."
+        }      
+    }
+
     public async editPesinho( {auth, request, response }){
 
         const user = await User.findOrFail(request.input("id"))
+        const check = await auth.use('api').authenticate();
 
         const newPesinhos= request.input("newPesinhos")
         const newPesinhosYears = request.input("newPesinhosYears")
@@ -94,12 +121,43 @@ export default class UsersController {
         } 
 
         try {   
-            await auth.check()
+            await check
             user.pesinhos_month = checkValue(newPesinhos, user.pesinhos_month);  
             user.pesinhos_years = checkValue(newPesinhosYears, user.pesinhos_years);  
             user.avulso = checkValue(newAvulso, user.avulso);  
             user.subs = checkValue(newSubs, user.subs);  
 
+            await user?.save()
+
+            return{
+                message: "Editado com Sucesso!",
+            }
+        } catch (error) {
+            return{
+                message: "Falhou"
+            }
+        }
+    }
+
+    public async editValidadeProf( {auth, request, response }){
+
+        const user = await User.findOrFail(request.input("id"))
+        const check = await auth.use('api').authenticate();
+
+        const validade= request.input("validade")
+
+
+        const checkValue = (newValue: any, value: any) => {
+            if(newValue === null){
+                return value
+            } else {
+                return newValue
+            }
+        } 
+
+        try {   
+            await check
+            user.active = checkValue(validade, user.active);  
             await user?.save()
 
             return{
@@ -125,6 +183,10 @@ export default class UsersController {
                     await User.query().where('id', itens.id).update({pesinhos_years: itens.pesinhos_years, pesinhos_month: 0,  avulso: 0, subs: 0})
                 }
             })
+        }
+
+        const checkValues = async () => {
+                
         }
 
         if(check){
