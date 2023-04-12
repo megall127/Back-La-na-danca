@@ -14,7 +14,7 @@ export default class UserlndsSchema extends BaseSchema {
       table.float('pesinhos_years')
       table.float('avulso')
       table.float('subs')
-      table.string('typeuser')
+      table.string('typeuser').notNullable()
       table.float('elogio')
       table.float('critica')
       table.boolean('active')
