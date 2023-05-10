@@ -18,4 +18,11 @@ Route.post('/editvalidade', 'UsersController.editValidadeProf').as('usuario.edit
 
 Route.get('/closemonth', 'UsersController.closeMonth').as('usuario.closerMonth')
 
+
+//Rotas da Turma
+
+Route.post('/registerclass' , 'ClassesController.create').as('classe.create')
+
+Route.get('/takeclass' , 'ClassesController.getClasses').as('classe.take')
+
 }).prefix('/api')
