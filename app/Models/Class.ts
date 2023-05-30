@@ -9,6 +9,9 @@ export default class Class extends BaseModel {
   public name: string
 
   @column()
+  public professor: string
+
+  @column()
   public room: number
 
   @column()

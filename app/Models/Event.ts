@@ -6,23 +6,12 @@ export default class Event extends BaseModel {
   public id: number
 
   @column()
-  public tittle: string
+  public class: string
 
   @column()
-  public room: number
-
-  @column()
-  public all_day: boolean
-
-  @column()
-  public start: DateTime
-
-  @column()
-  public end: DateTime
+  public monitor: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
 }

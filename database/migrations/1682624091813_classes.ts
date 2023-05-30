@@ -12,6 +12,7 @@ export default class extends BaseSchema {
       table.boolean('weekly')
       table.dateTime('start')
       table.dateTime('end')
+      table.string('professor')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

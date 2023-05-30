@@ -27,4 +27,10 @@ Route.post('/takeclass' , 'ClassesController.getClasses').as('classe.take')
 
 Route.get('/takeallclass' , 'ClassesController.getAllClasses').as('classe.alltake')
 
+//Rotas Eventos
+
+Route.post('/registerevent' , 'EventsController.create').as('event.create')
+
+Route.post('/gethistoric' , 'EventsController.takeDadosEvents').as('event.gethistoric')
+
 }).prefix('/api')

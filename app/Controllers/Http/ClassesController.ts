@@ -12,6 +12,7 @@ export default class ClassesController {
         classes.start = request.input('start')
         classes.end = request.input('end')
         classes.weekly = request.input('weekly')
+        classes.professor = request.input('professor')
 
 
         await classes.save()
