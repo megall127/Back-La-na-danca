@@ -11,6 +11,7 @@ export default class ClassesController {
         classes.room = request.input('room')
         classes.start = request.input('start')
         classes.end = request.input('end')
+        classes.weekly = request.input('weekly')
 
 
         await classes.save()
@@ -18,11 +19,11 @@ export default class ClassesController {
 
     public async getClasses( { auth , request, response}: HttpContextContract){  
         const check = await auth.use('api').authenticate()
-    
+        
+        const validade= request.input("room")
 
         if(check){
-            
-             return await Class.all();
+             return await Class.query().where('room' , validade);
         } else {
             
             return "Usuario nao autenticado"

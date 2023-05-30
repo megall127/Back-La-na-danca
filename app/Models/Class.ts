@@ -15,6 +15,9 @@ export default class Class extends BaseModel {
   public all_day: boolean
 
   @column()
+  public weekly: boolean
+
+  @column()
   public start: DateTime
 
   @column()

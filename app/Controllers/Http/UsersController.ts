@@ -35,7 +35,7 @@ export default class UsersController {
         
         
         try {
-        const token = await auth.use('api').attempt(email, password)
+            const token = await auth.use('api').attempt(email, password)
           return {
             token: token,
             user: auth.user,
@@ -120,8 +120,7 @@ export default class UsersController {
             }
         } 
 
-        try {   
-            await check
+        if(check){
             user.pesinhos_month = checkValue(newPesinhos, user.pesinhos_month);  
             user.pesinhos_years = checkValue(newPesinhosYears, user.pesinhos_years);  
             user.avulso = checkValue(newAvulso, user.avulso);  
@@ -132,7 +131,7 @@ export default class UsersController {
             return{
                 message: "Editado com Sucesso!",
             }
-        } catch (error) {
+        } else{
             return{
                 message: "Falhou"
             }

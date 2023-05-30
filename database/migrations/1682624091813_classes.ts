@@ -9,6 +9,7 @@ export default class extends BaseSchema {
       table.string('name').notNullable()
       table.integer('room').notNullable()
       table.boolean('all_day')
+      table.boolean('weekly')
       table.dateTime('start')
       table.dateTime('end')
 

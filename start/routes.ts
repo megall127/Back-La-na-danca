@@ -23,6 +23,6 @@ Route.get('/closemonth', 'UsersController.closeMonth').as('usuario.closerMonth')
 
 Route.post('/registerclass' , 'ClassesController.create').as('classe.create')
 
-Route.get('/takeclass' , 'ClassesController.getClasses').as('classe.take')
+Route.post('/takeclass' , 'ClassesController.getClasses').as('classe.take')
 
 }).prefix('/api')
