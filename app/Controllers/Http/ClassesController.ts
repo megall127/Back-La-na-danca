@@ -30,6 +30,17 @@ export default class ClassesController {
         }      
     }
 
+    public async getAllClasses( { auth , request, response}: HttpContextContract){  
+        const check = await auth.use('api').authenticate()
+
+        if(check){
+             return await Class.all();
+        } else {
+            
+            return "Usuario nao autenticado"
+        }      
+    }
+
 
 
 }
