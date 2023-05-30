@@ -8,8 +8,8 @@ export default class EventsController {
 
         const event = new Event()
 
-        event.class = request.input('name')
-        event.monitor = request.input('room')
+        event.class = request.input('class')
+        event.monitor = request.input('monitor')
 
         await event.save()
     }
@@ -18,10 +18,10 @@ export default class EventsController {
         
         const check = await auth.use('api').authenticate()
 
-        const id= request.input("id")
+        const monitor= request.input("monitor")
 
         if(check){
-            return Event.query().where("id" , id)
+            return Event.query().where("monitor" , monitor)
         } else {
             return "Usuário não autenticado."
         }      
