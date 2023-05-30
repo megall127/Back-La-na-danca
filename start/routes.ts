@@ -25,4 +25,6 @@ Route.post('/registerclass' , 'ClassesController.create').as('classe.create')
 
 Route.post('/takeclass' , 'ClassesController.getClasses').as('classe.take')
 
+Route.get('/takeallclass' , 'ClassesController.getAllClasses').as('classe.alltake')
+
 }).prefix('/api')
