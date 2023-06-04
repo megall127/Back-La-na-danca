@@ -34,6 +34,15 @@ export default class User extends BaseModel {
   public subs: number
 
   @column()
+  public subsprof: number
+
+  @column()
+  public eventos: number
+
+  @column()
+  public fiscal: number
+
+  @column()
   public typeuser: string
 
   @column()
@@ -41,6 +50,18 @@ export default class User extends BaseModel {
 
   @column()
   public critica: number
+
+  @column()
+  public falta: number
+
+  @column()
+  public tempodecasa: number
+
+  @column()
+  public turmafiscal: string
+
+  @column()
+  public turmafixas: number
 
   @column()
   public active: boolean
