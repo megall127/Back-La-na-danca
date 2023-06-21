@@ -121,11 +121,11 @@ export default class UsersController {
 
 
         if (check) {
-            user.pesinhos_month = user.pesinhos_month + newPesinhos;
-            user.avulso = user.avulso + newAvulso;
-            user.subs = user.subs + newSubs;
-            user.subsprof = user.subsprof + newSubsProf;
-            user.falta = user.falta + newFalta;
+            user.pesinhos_month = user.pesinhos_month + parseFloat(newPesinhos);
+            user.avulso = user.avulso + parseFloat(newAvulso);
+            user.subs = user.subs + parseFloat(newSubs);
+            user.subsprof = user.subsprof + parseFloat(newSubsProf);
+            user.falta = user.falta + parseFloat(newFalta); 
 
             await user?.save()
 
