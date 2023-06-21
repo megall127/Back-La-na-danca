@@ -16,6 +16,8 @@ Route.post('/editpesinho', 'UsersController.editPesinho').as('usuario.editPesinh
 
 Route.post('/editvalidade', 'UsersController.editValidadeProf').as('usuario.editValidadeProf')
 
+Route.get('/countpezinhos', 'UsersController.countPezinhos').as('usuario.countPezinhos')
+
 Route.get('/closemonth', 'UsersController.closeMonth').as('usuario.closerMonth')
 
 

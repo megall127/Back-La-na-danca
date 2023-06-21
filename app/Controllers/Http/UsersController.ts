@@ -113,24 +113,19 @@ export default class UsersController {
         const check = await auth.use('api').authenticate();
 
         const newPesinhos = request.input("newPesinhos")
-        const newPesinhosYears = request.input("newPesinhosYears")
         const newAvulso = request.input("newAvulso")
         const newSubs = request.input("newSubs")
+        const newSubsProf = request.input("newSubsProf")
+        const newFalta = request.input("newFalta")
 
 
-        const checkValue = (newValue: number, value: number) => {
-            if (newValue === null) {
-                return value
-            } else {
-                return newValue
-            }
-        }
 
         if (check) {
-            user.pesinhos_month = checkValue(newPesinhos, user.pesinhos_month);
-            user.pesinhos_years = checkValue(newPesinhosYears, user.pesinhos_years);
-            user.avulso = checkValue(newAvulso, user.avulso);
-            user.subs = checkValue(newSubs, user.subs);
+            user.pesinhos_month = user.pesinhos_month + newPesinhos;
+            user.avulso = user.avulso + newAvulso;
+            user.subs = user.subs + newSubs;
+            user.subsprof = user.subsprof + newSubsProf;
+            user.falta = user.falta + newFalta;
 
             await user?.save()
 
@@ -178,44 +173,42 @@ export default class UsersController {
 
     public async countPezinhos({ auth, request }: HttpContextContract) {
         const check = await auth.use('api').authenticate();
-
-        const count = async () => {
-
-
-        }
+        const users = await User.query().where('typeuser', 'monitor');
 
 
-
-    }
-
-    public async closeMonth({ auth, request }: HttpContextContract) {
-        const check = await auth.use('api').authenticate();
-
-        const countMonth = async () => {
-            const users = await User.query().where('typeuser', 'monitor');
-            try {
+        const countAvulso = async () => {
+                
                 for (const user of users) {
+                    let total = 0;
                     const totalPoints = user.avulso;
     
                     if (totalPoints % 8 === 0) {
                         const addPezinhosMonth = Math.floor(totalPoints / 8);
-                        await User.query().where('id', user.id).update({ pesinhos_month: user.pesinhos_month + addPezinhosMonth });
-                        console.log(addPezinhosMonth)
+                        // await User.query().where('id', user.id).update({ pesinhos_month: user.pesinhos_month + addPezinhosMonth });
+                        total = total + addPezinhosMonth;
                     }
-                }
-                // for (const user of users) {
-    
-                //     if (user.subs >= 1) {
-                //         await User.query().where('id', user.id).update({ pesinhos_month: user.pesinhos_month +  user.subs * 0.5 });
-                //     }
-                // }
 
-            } catch (error) {
-                return 'deu ruim'
+                    total = total + user.subs * 0.5;
+
+                    total = total + user.subsprof * 0.5;
+
+                    total = total - user.falta * 0.5;
+                    
+                    await User.query().where('id', user.id).update({ pesinhos_month: total});
+                }
             }
-  
+
+            if(check){
+                countAvulso()
+            } else {
+                return "nao deu certo"
+            }
    
         };
+
+
+    public async closeMonth({ auth, request }: HttpContextContract) {
+        const check = await auth.use('api').authenticate();
 
 
 
@@ -233,8 +226,7 @@ export default class UsersController {
 
 
         if (check) {
-            await countMonth();
-            // await count();
+            await count();
         } else {
             return "Não deu bom"
         }
