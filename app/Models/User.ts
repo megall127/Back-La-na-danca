@@ -66,6 +66,8 @@ export default class User extends BaseModel {
   @column()
   public active: boolean
 
+  
+
   @column()
   public rememberMeToken?: string
 
